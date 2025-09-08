@@ -1,0 +1,12 @@
+name: crediya-debt-capacity-lambda
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - fastapi
+      - requests
+      - python-dotenv
+      - mangum
