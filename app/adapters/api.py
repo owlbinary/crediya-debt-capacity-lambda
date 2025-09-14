@@ -30,7 +30,6 @@ async def calcular_capacidad(request_data: CalcularCapacidadRequest = Body(...))
     monto = request_data.monto
     documento_identidad = request_data.documentoIdentidad
     deuda_total_mensual = request_data.deudaTotalMensual
-    authorization = request_data.token
 
     if not tasa_interes:
         logger.warning("Datos incompletos en la solicitud (tasaInteres)")
@@ -49,7 +48,7 @@ async def calcular_capacidad(request_data: CalcularCapacidadRequest = Body(...))
     }
 
     resultado = service.calcular_y_actualizar_estado(
-        solicitud_id, datos_solicitante, datos_prestamo, authorization=authorization
+        solicitud_id, datos_solicitante, datos_prestamo
     )
     if isinstance(resultado, dict) and ("mensaje" in resultado or "error" in resultado) and not resultado.get("decision"):
         mensaje = resultado.get("mensaje") or resultado.get("error")

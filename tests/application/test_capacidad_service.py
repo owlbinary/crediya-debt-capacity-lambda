@@ -15,7 +15,7 @@ class TestCapacidadEndeudamientoService:
         service = CapacidadEndeudamientoService(repo)
         datos_solicitante = {"ingresos_totales": 10000, "salario": 2000}
         datos_prestamo = {"monto": 1000, "tasa_interes_anual": 0, "plazo_meses": 10}
-        result = service.calcular_y_actualizar_estado("sol1", datos_solicitante, datos_prestamo, authorization="dummy")
+        result = service.calcular_y_actualizar_estado("sol1", datos_solicitante, datos_prestamo)
         assert result["decision"] == Decision.APROBADO
         assert repo.last_update == ("sol1", Decision.APROBADO)
 
@@ -24,7 +24,7 @@ class TestCapacidadEndeudamientoService:
         service = CapacidadEndeudamientoService(repo)
         datos_solicitante = {"ingresos_totales": 10000, "salario": 1000}
         datos_prestamo = {"monto": 6000, "tasa_interes_anual": 0, "plazo_meses": 12}
-        result = service.calcular_y_actualizar_estado("sol2", datos_solicitante, datos_prestamo, authorization="dummy")
+        result = service.calcular_y_actualizar_estado("sol2", datos_solicitante, datos_prestamo)
         assert result["decision"] == Decision.REVISION_MANUAL
         assert repo.last_update == ("sol2", Decision.REVISION_MANUAL)
 
@@ -33,7 +33,7 @@ class TestCapacidadEndeudamientoService:
         service = CapacidadEndeudamientoService(repo)
         datos_solicitante = {"ingresos_totales": 1000, "salario": 1000, "deuda_total_mensual": 300}
         datos_prestamo = {"monto": 10000, "tasa_interes_anual": 0.1, "plazo_meses": 12}
-        result = service.calcular_y_actualizar_estado("sol3", datos_solicitante, datos_prestamo, authorization="dummy")
+        result = service.calcular_y_actualizar_estado("sol3", datos_solicitante, datos_prestamo)
         assert result["decision"] == Decision.RECHAZADO
         assert repo.last_update == ("sol3", Decision.RECHAZADO)
 
@@ -42,5 +42,5 @@ class TestCapacidadEndeudamientoService:
         service = CapacidadEndeudamientoService(repo)
         datos_solicitante = {"ingresos_totales": 1000, "salario": 1000}
         datos_prestamo = {"monto": None, "tasa_interes_anual": 0.1, "plazo_meses": 12}
-        result = service.calcular_y_actualizar_estado("sol4", datos_solicitante, datos_prestamo, authorization="dummy")
+        result = service.calcular_y_actualizar_estado("sol4", datos_solicitante, datos_prestamo)
         assert "error" in result

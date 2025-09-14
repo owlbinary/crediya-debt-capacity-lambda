@@ -10,7 +10,7 @@ class CapacidadEndeudamientoService:
 	def __init__(self, repository):
 		self.repository = repository
 
-	def calcular_y_actualizar_estado(self, solicitud_id: str, datos_solicitante: dict, datos_prestamo: dict, authorization: str) -> dict:
+	def calcular_y_actualizar_estado(self, solicitud_id: str, datos_solicitante: dict, datos_prestamo: dict) -> dict:
 		"""
 		Orquesta el cálculo de capacidad y actualiza el estado de la solicitud de forma atómica.
 		Maneja logs y excepciones. Si el tipo de préstamo tiene validación automática, encola la solicitud.
@@ -52,7 +52,7 @@ class CapacidadEndeudamientoService:
 					saldo -= abono_capital
 
 			ok, error_msg = self.repository.actualizar_estado_solicitud(
-				solicitud_id, decision, jwt_token=authorization, plan_pago=plan_pago
+				solicitud_id, decision, plan_pago=plan_pago
 			)
 			if not ok:
 				logger.error(f"Fallo al actualizar estado: {error_msg}")

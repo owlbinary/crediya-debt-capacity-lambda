@@ -20,7 +20,6 @@ class CalcularCapacidadRequest(BaseModel):
     monto: float
     documentoIdentidad: str
     deudaTotalMensual: Optional[float] = None
-    token: str
 
 
 class CalcularCapacidadResponse(BaseModel):
