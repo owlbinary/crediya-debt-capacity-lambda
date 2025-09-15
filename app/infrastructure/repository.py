@@ -20,7 +20,7 @@ class Repository:
 			region_name=os.getenv('AWS_REGION', 'us-east-1')
 		)
 
-	def actualizar_estado_solicitud(self, solicitud_id: str, nuevo_estado: str, plan_pago=None):
+	def actualizar_estado_solicitud(self, solicitud_id: str, nuevo_estado: str, plan_pago=None, monto=None, tasa_interes=None, plazo=None):
 		"""
 		Envía un mensaje a SQS para que el microservicio de applications 
 		procese la actualización de estado de forma asíncrona
@@ -41,6 +41,13 @@ class Repository:
 					"origen": "debt-capacity-lambda"
 				}
 			}
+			
+			if monto is not None:
+				message_body["params"]["monto"] = str(monto)
+			if tasa_interes is not None:
+				message_body["params"]["tasaInteres"] = str(tasa_interes)
+			if plazo is not None:
+				message_body["params"]["plazo"] = plazo
 			
 			if plan_pago is not None:
 				message_body["params"]["planPago"] = plan_pago

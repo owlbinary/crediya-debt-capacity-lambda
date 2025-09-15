@@ -5,8 +5,8 @@ class DummyRepository:
     def __init__(self):
         self.last_update = None
 
-    def actualizar_estado_solicitud(self, solicitud_id, nuevo_estado, jwt_token=None, plan_pago=None):
-        self.last_update = (solicitud_id, nuevo_estado)
+    def actualizar_estado_solicitud(self, solicitud_id, nuevo_estado, plan_pago=None, monto=None, tasa_interes=None, plazo=None):
+        self.last_update = (solicitud_id, nuevo_estado, monto, tasa_interes, plazo)
         return True, None
 
 class TestCapacidadEndeudamientoService:

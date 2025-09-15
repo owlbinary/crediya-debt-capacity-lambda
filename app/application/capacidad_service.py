@@ -52,7 +52,10 @@ class CapacidadEndeudamientoService:
 					saldo -= abono_capital
 
 			ok, error_msg = self.repository.actualizar_estado_solicitud(
-				solicitud_id, decision, plan_pago=plan_pago
+				solicitud_id, decision, plan_pago=plan_pago,
+				monto=datos_prestamo['monto'],
+				tasa_interes=datos_prestamo['tasa_interes_anual'],
+				plazo=datos_prestamo['plazo_meses']
 			)
 			if not ok:
 				logger.error(f"Fallo al actualizar estado: {error_msg}")
